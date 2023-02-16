@@ -32,7 +32,7 @@ def loopLetters (pos, cant, passwd):
                 stop = loopNumbers(pos+1,cant,p)
     
             if not stop:
-                loopSpecialChar(pos+1,cant,p)
+                stop = loopSpecialChar(pos+1,cant,p)
         if stop:
             break
 
@@ -59,7 +59,7 @@ def loopSpecialChar (pos, cant, passwd):
                 stop = loopLetters(pos+1,cant,p)
             
             if not stop:
-                loopNumbers(pos+1,cant,p)
+                stop = loopNumbers(pos+1,cant,p)
     
         if stop:
             break
@@ -81,13 +81,13 @@ def loopNumbers (pos, cant, passwd):
                 stop = True
                 break
         else:
-            loopNumbers(pos+1,cant,p)
+            stop = loopNumbers(pos+1,cant,p)
 
             if not stop:
                 stop = loopLetters(pos+1,cant,p)
             
             if not stop:
-                loopSpecialChar(pos+1,cant,p)
+                stop = loopSpecialChar(pos+1,cant,p)
     
         if stop:
             break
