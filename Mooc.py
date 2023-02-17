@@ -1,14 +1,19 @@
 import string
 
-password = "Aa@0"
+password = ""
 
-listLetters = list(string.ascii_letters)
-listNumbers = list(string.digits)
-listSpecialCharacters = list(string.punctuation)
+"""
+All functions using the recursivity, it's mean that they call themselfs
 
-lastPass = ""
+The algorithm starts back to front with the last character position, 
+it tests with all possibles characters, if it doesn't equals to the password,
+changes the previous position character and repeat the proccess until it find the given password 
 
-
+@pos : the currently position of character in the string of testing password
+@cant : length of password
+@passwd: the string that makes the changes so we can pass again when the the function calls itself
+and compare with the given password
+"""
 def loopLetters (pos, cant, passwd):
     stop = False 
 
@@ -21,7 +26,7 @@ def loopLetters (pos, cant, passwd):
         p = passwd+listLetters[x]
 
         if (cant - pos) == 0:
-            #print(p)
+            print(p)
             if(p == password):
                 print(f"el password es: {p}")
                 stop = True
@@ -47,7 +52,7 @@ def loopSpecialChar (pos, cant, passwd):
         p = passwd+listSpecialCharacters[x]
 
         if (cant - pos) == 0:
-            #print(p)
+            print(p)
             if(p == password):
                 print(f"el password es: {p}")
                 stop = True
@@ -75,7 +80,7 @@ def loopNumbers (pos, cant, passwd):
         p = passwd+listNumbers[x]
 
         if (cant - pos) == 0:
-            #print(p)
+            print(p)
             if(p == password):
                 print(f"el password es: {p}")
                 stop = True
@@ -96,34 +101,54 @@ def loopNumbers (pos, cant, passwd):
     lastPass = p
     return stop
 
-pss = ""
 
-cant = len(password)
+"""
+Challenge: to create a password cracker using Brute Force Technique
+Our approach is first to loop over the letters, then over digits and finally over special characters.
+"""
 
-for x in range(0,cant-1):
-    pss += listLetters[0]
+def passwordCracker (psw):
+    
+    global password 
+    password = psw
 
-stop = False
+    pss = ""
 
-for x in reversed(range(cant)):
+    cant = len(password)
 
-    stop = loopLetters(x,cant-1,pss[:x])
+    for x in range(0,cant-1):
+        pss += listLetters[0]
 
-    print(lastPass)
+    stop = False
 
-    if stop:
-        break
+    for x in reversed(range(cant)):
 
-    stop = loopNumbers(x,cant-1,pss[:x])
+        stop = loopLetters(x,cant-1,pss[:x])
 
-    print(lastPass)
+        #print(lastPass)
 
-    if stop:
-        break
+        if stop:
+            break
 
-    stop = loopSpecialChar(x,cant-1,pss[:x])
+        stop = loopNumbers(x,cant-1,pss[:x])
 
-    print(lastPass)
+        #print(lastPass)
 
-    if stop:
-        break
+        if stop:
+            break
+
+        stop = loopSpecialChar(x,cant-1,pss[:x])
+
+        #print(lastPass)
+
+        if stop:
+            break
+        
+
+listLetters = list(string.ascii_letters)
+listNumbers = list(string.digits)
+listSpecialCharacters = list(string.punctuation)
+
+#lastPass = ""
+passwordCracker("PasS123!")
+
