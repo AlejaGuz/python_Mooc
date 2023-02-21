@@ -48,7 +48,12 @@ def loopLetters (pos, cant, passwd):
 def loopSpecialChar (pos, cant, passwd):
     stop = False
 
-    for x in range(0,len(listSpecialCharacters)):
+    start = 0
+
+    if pos == 0:
+        start = 1
+
+    for x in range(start,len(listSpecialCharacters)):
         p = passwd+listSpecialCharacters[x]
 
         if (cant - pos) == 0:
@@ -76,7 +81,12 @@ def loopSpecialChar (pos, cant, passwd):
 def loopNumbers (pos, cant, passwd):
     stop = False
 
-    for x in range(0,len(listNumbers)):
+    start = 0
+
+    if pos == 0:
+        start = 1
+
+    for x in range(start,len(listNumbers)):
         p = passwd+listNumbers[x]
 
         if (cant - pos) == 0:
@@ -117,18 +127,11 @@ def passwordCracker (psw):
     cant = len(password)
 
     for x in range(0,cant-1):
-        pss += listLetters[0]
+        pss += listNumbers[0]
 
     stop = False
 
     for x in reversed(range(cant)):
-
-        stop = loopLetters(x,cant-1,pss[:x])
-
-        #print(lastPass)
-
-        if stop:
-            break
 
         stop = loopNumbers(x,cant-1,pss[:x])
 
@@ -143,6 +146,13 @@ def passwordCracker (psw):
 
         if stop:
             break
+
+        stop = loopLetters(x,cant-1,pss[:x])
+
+        #print(lastPass)
+
+        if stop:
+            break
         
 
 listLetters = list(string.ascii_letters)
@@ -150,5 +160,5 @@ listNumbers = list(string.digits)
 listSpecialCharacters = list(string.punctuation)
 
 #lastPass = ""
-passwordCracker("PasS123!")
+passwordCracker("bA@0")
 
