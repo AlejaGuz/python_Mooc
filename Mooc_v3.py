@@ -7,9 +7,7 @@ def id_generator(size=6, chars=string.ascii_letters + string.digits + string.pun
 pssw = "Aa@0"
 while True:
     p = id_generator(4)
-
-    print(p)
-
+    # print(p)
     if p==pssw:
         print(f"Password is: {p}")
         break
